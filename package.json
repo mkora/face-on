@@ -1,0 +1,31 @@
+{
+  "name": "face-on",
+  "version": "1.0.0",
+  "description": "Make your own avatar",
+  "main": "cli.js",
+  "scripts": {
+    "lint": "node_modules/eslint/bin/eslint.js .",
+    "test": "mocha --timeout 10000"
+  },
+  "bin": {
+    "ava": "./cli.js"
+  },
+  "author": "mkora",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.0",
+    "console-log-level": "^1.4.0",
+    "dotenv": "^5.0.1",
+    "inquirer": "^5.2.0",
+    "log-symbols": "^2.2.0",
+    "meow": "^5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "mocha": "^5.1.1"
+  }
+}
