@@ -16,42 +16,33 @@ const inquirer = require('inquirer');
 const cli = meow(`
   Usage:
     $ node cli.js <input> [options]
-    $ util <input> [options]
+    $ ava <input> [options]
 
   Input:
-    shout
+    get             Get a random image,
+                    (prompt: identifier[.png] size border-radius)
+    make            Build an avatar from scratch
+                    (prompt: eyes nose mouth color)
 
   Options:
-    -t, --text TEXT   text for trasformation
+    -f, --file      Save an avatar to a file,
+                    by default it outputs to stdout & prints the link
 
   Examples:
-    $ util shout --text='Oh, no!'
+    $ ava make --file='avatar.png'
 
   Other options:
-    --help            show usage information
-    --version         print version info and exit    
+    --help           Show usage information
+    --version        Print version info and exit
   `, {
   flags: {
-    text: {
+    file: {
       type: 'string',
-      alias: 't',
-      default: 'Shut up, Meg!',
+      alias: 'f',
+      default: 'avatar.png',
     },
   },
 });
-
-/**
- * Init promting question object
- * for mo options see Inquirer documentation
- */
-const questions = [
-  {
-    type: 'confirm',
-    name: 'sure',
-    message: 'Are you sure you want to shout?',
-    default: true,
-  },
-];
 
 /**
  * Reacts on cli input and options
@@ -60,17 +51,15 @@ const questions = [
  * @param {object} flags    flag values
  */
 const actions = (action, flags) => {
-  if (action === 'shout') {
-    const { text } = flags;
-    if (text) {
-      const output = text.toUpperCase();
-      log(output);
-    } else {
-      log(text);
-    }
+  const { file } = flags;
+  if (action === 'get') {
+    log('Get a rand ava');
+    success('Done');
+  } else if (action === 'make') {
+    log('Make your ava!');
     success('Done');
   } else {
-    warn('Missed action. Not sure what to do');
+    warn('Missed action. Not sure what to do next.');
   }
 };
 
@@ -83,14 +72,5 @@ if (cli.input[0] === undefined) {
   process.exit();
 }
 
-inquirer.prompt(questions).then((answers) => {
-  debug(JSON.stringify(cli, null, '  '));
-  debug(JSON.stringify(answers, null, '  '));
-
-  if (answers.sure) {
-    actions(cli.input[0], cli.flags, cli.help);
-  } else {
-    success('Good boy!');
-  }
-});
+actions(cli.input[0], cli.flags);
 
