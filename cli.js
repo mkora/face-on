@@ -1,14 +1,13 @@
 const meow = require('meow');
 const {
-  error, // eslint-disable-line no-unused-vars
-  warn, // eslint-disable-line no-unused-vars
-  success, // eslint-disable-line no-unused-vars
-  debug, // eslint-disable-line no-unused-vars
-  log,
-} = require('./utils/chalk-init');
-const inquirer = require('inquirer');
+  getAction,
+  makeAction,
+} = require('./actions');
 
-const testFilename = require('./utils/filename-regex');
+const {
+  log,
+  warn,
+} = require('./utils/chalk-init');
 
 /**
  * Init CLI object
@@ -47,63 +46,6 @@ const cli = meow(`
 });
 
 /**
- * Init promting question object
- * for mo options see Inquirer documentation
- */
-const getQuestions = [
-  {
-    type: 'input',
-    name: 'identifier',
-    message: 'Please, enter identifier',
-    validate: (value) => {
-      if (testFilename(value)) {
-        return true;
-      }
-      return 'Please enter a valid identifier name';
-    },
-  },
-  {
-    type: 'input',
-    name: 'size',
-    message: 'Please, provide a size of a pic (in px)',
-    validate: (value) => {
-      const parsed = parseFloat(value);
-      return !isNaN(parseFloat(parsed)) || 'Please enter a number';
-    },
-    filter: Number,
-  },
-  {
-    type: 'input',
-    name: 'radius',
-    message: 'Please, provide a border radius (%)',
-    validate: (value) => {
-      const parsed = parseFloat(value);
-      return !((isNaN(parsed) || parsed < 0 || parsed > 100)) || 'Please enter a valid number';
-    },
-    filter: Number,
-  },
-];
-
-/**
- * Reacts on cli input and options
- *
- * @param {string} action   first non-flag argument
- * @param {object} flags    flag values
- */
-const actions = (action, flags) => {
-  const { file } = flags;
-  if (action === 'get') {
-    log('Get a rand ava');
-    success('Done');
-  } else if (action === 'make') {
-    log('Make your ava!');
-    success('Done');
-  } else {
-    warn('Missed action. Not sure what to do next.');
-  }
-};
-
-/**
  * Main Part
  * (code here)
  */
@@ -112,5 +54,13 @@ if (cli.input[0] === undefined) {
   process.exit();
 }
 
-actions(cli.input[0], cli.flags);
+const action = cli.input[0];
+const opts = cli.flags;
 
+if (action === 'get') {
+  getAction(opts);
+} else if (action === 'make') {
+  makeAction(opts);
+} else {
+  warn('Missed action. Not sure what to do next.');
+}
