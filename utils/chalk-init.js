@@ -6,13 +6,36 @@ dotenv.load({
   path: '.env',
 });
 
-const logIt = require('console-log-level')({ level: process.env.LOG_LEVEL });
+const logIt = require('console-log-level')({
+  level: process.env.LOG_LEVEL,
+});
 
-const error = msg => logIt.error(`${logSymbols.error} ${chalk.bold.red(msg)}`);
-const warn = msg => logIt.warn(`${logSymbols.warning} ${chalk.keyword('orange')(msg)}`);
-const success = msg => logIt.info(`${logSymbols.success} ${chalk.bold.green(msg)}`);
-const debug = msg => logIt.debug(`${logSymbols.info} ${chalk.gray(msg)}`);
-const log = msg => console.log(chalk.white(msg));
+const tpl = require('./tpl-str');
+
+const error = msg =>
+  logIt
+    .error(chalk
+      .bold
+      .red(tpl`${logSymbols.error} ${msg}`));
+
+const warn = msg =>
+  logIt
+    .warn(chalk
+      .keyword('orange')(tpl`${logSymbols.warning} ${msg}`));
+
+const success = msg =>
+  logIt
+    .info(chalk
+      .bold
+      .green(tpl`${logSymbols.success} ${msg}`));
+
+const debug = msg =>
+  logIt
+    .debug(chalk
+      .gray(tpl`${logSymbols.info} ${msg}`));
+const log = msg =>
+  console.log(chalk
+    .white(tpl`${msg}`));
 
 module.exports = {
   error,

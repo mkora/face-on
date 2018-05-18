@@ -49,14 +49,14 @@ const getQuestions = [
 ];
 
 const getAction = (opts) => {
-  debug(JSON.stringify(opts, null, '  '));
+  debug(opts);
 
   log('Get a rand ava');
   success('Done');
 };
 
 const makeAction = (opts) => {
-  debug(JSON.stringify(opts, null, '  '));
+  debug(opts);
 
   log('Make your ava!');
   success('Done');
