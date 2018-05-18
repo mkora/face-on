@@ -3,7 +3,7 @@ const chalk = require('chalk');
 const logSymbols = require('log-symbols');
 
 dotenv.load({
-  path: '.env.example',
+  path: '.env',
 });
 
 const logIt = require('console-log-level')({ level: process.env.LOG_LEVEL });
