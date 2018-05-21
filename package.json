@@ -13,6 +13,7 @@
   "author": "mkora",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "chalk": "^2.4.0",
     "console-log-level": "^1.4.0",
     "dotenv": "^5.0.1",
