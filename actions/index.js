@@ -1,5 +1,6 @@
+const fs = require('fs');
 const inquirer = require('inquirer');
-
+const axios = require('axios');
 const {
   error, // eslint-disable-line no-unused-vars
   warn, // eslint-disable-line no-unused-vars
@@ -7,52 +8,37 @@ const {
   debug, // eslint-disable-line no-unused-vars
   log,
 } = require('../utils/chalk-init');
-
-const testFilename = require('../utils/filename-regex');
-
-/**
- * Init promting question object
- * for mo options see Inquirer documentation
- */
-const getQuestions = [
-  {
-    type: 'input',
-    name: 'identifier',
-    message: 'Please, enter identifier',
-    validate: (value) => {
-      if (testFilename(value)) {
-        return true;
-      }
-      return 'Please enter a valid identifier name';
-    },
-  },
-  {
-    type: 'input',
-    name: 'size',
-    message: 'Please, provide a size of a pic (in px)',
-    validate: (value) => {
-      const parsed = parseFloat(value);
-      return !isNaN(parseFloat(parsed)) || 'Please enter a number';
-    },
-    filter: Number,
-  },
-  {
-    type: 'input',
-    name: 'radius',
-    message: 'Please, provide a border radius (%)',
-    validate: (value) => {
-      const parsed = parseFloat(value);
-      return !((isNaN(parsed) || parsed < 0 || parsed > 100)) || 'Please enter a valid number';
-    },
-    filter: Number,
-  },
-];
+const getQuestions = require('../questions/get');
+const config = require('../config');
 
 const getAction = (opts) => {
   debug(opts);
 
-  log('Get a rand ava');
-  success('Done');
+  inquirer.prompt(getQuestions).then((answers) => {
+    debug(answers);
+
+    if (answers.id) {
+      const filename = `${answers.id}.png`;
+      const url = `${config.API_URL}${answers.size}/${filename}`;
+      const folder = config.DEFAULT_FOLDER;
+      debug(`Let's make an API call to ${url}`);
+
+      axios({
+        method: 'get',
+        url,
+        responseType: 'stream',
+      })
+        .then((res) => {
+          res.data.pipe(fs.createWriteStream(`${folder}${filename}`));
+          success(`Image was saved to ${folder}${filename}`);
+        })
+        .catch((err) => {
+          error(err);
+        });
+    } else {
+      warn('Something went wrong');
+    }
+  });
 };
 
 const makeAction = (opts) => {

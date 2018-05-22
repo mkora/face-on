@@ -1,4 +1,10 @@
+const dotenv = require('dotenv');
 const meow = require('meow');
+
+dotenv.load({
+  path: '.env',
+});
+
 const {
   getAction,
   makeAction,
@@ -40,7 +46,6 @@ const cli = meow(`
     file: {
       type: 'string',
       alias: 'f',
-      default: 'avatar.png',
     },
   },
 });
@@ -62,5 +67,5 @@ if (action === 'get') {
 } else if (action === 'make') {
   makeAction(opts);
 } else {
-  warn('Missed action. Not sure what to do next.');
+  warn('Missed action. Not sure what to do next');
 }
