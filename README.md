@@ -10,36 +10,16 @@ Make your own avatar
 
 - Uses [Adorable Avatars API](http://avatars.adorable.io/)
 
+- A CLI input param `get` saves to `./data/` by default (see `config/` to redefine folder name)
+
+- ?
+
 - Uses `meow` as CLI helper
 
 - Uses `inquirer` as interctive CLI user interface
 
 - Loads environment variables from `.env` file
 
-- Full list of log levels:
-
-  ```
-  trace
-  debug   - use it for development
-  info    - default value is set in `.env.example` from `util/chalk-init`
-  warn
-  error   - use it for production
-  fatal
-  ```
-
-- Full list of logging functions:
-
-  ```
-  error
-  warn
-  success
-  debug
-  log
-  ```
-
-- A CLI tool name is `util`. Change it in `package.json`
-
-- Linter config extends airbnb's
 
 ## Quick Start
 
@@ -53,14 +33,11 @@ Make your own avatar
 
   ```
   # Help
-  util --help
+  ava --help
   node cli.js --help
-  # Shout by default
-  util shout
-  node node cli.js shout
-  # Shout with a text option
-  util shout --text='Oh, no!'
-  node cli.js shout --text='Oh, no!'
+  # ...
+
+
   ```
 
 3. Make it a real CLI tool:
