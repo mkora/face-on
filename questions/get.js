@@ -1,12 +1,12 @@
-const testFilename = require('../utils/filename-regex');
+const validFilename = require('../utils/validate-filename');
 
 module.exports = [
   {
     type: 'input',
     name: 'id',
-    message: 'Identifier:',
+    message: 'Enter an identifier:',
     validate: (value) => {
-      if (value && testFilename(value)) {
+      if (value && validFilename(value)) {
         return true;
       }
       return 'Please enter a valid identifier name';
@@ -16,7 +16,7 @@ module.exports = [
   {
     type: 'input',
     name: 'size',
-    message: 'Size of a picture (in px):',
+    message: 'Enter a size of a picture (in px):',
     validate: (value) => {
       const parsed = parseFloat(value);
       return !isNaN(parseFloat(parsed)) // eslint-disable-line no-restricted-globals

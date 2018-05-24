@@ -1,4 +1,19 @@
+const validFilename = require('../utils/validate-filename');
+const validHex = require('../utils/validate-hex');
+
 module.exports = [
+  {
+    type: 'input',
+    name: 'id',
+    message: 'Enter an identifier:',
+    validate: (value) => {
+      if (value && validFilename(value)) {
+        return true;
+      }
+      return 'Please enter a valid identifier name';
+    },
+    default: 'file@user.name',
+  },
   {
     type: 'list',
     name: 'eyes',
@@ -46,19 +61,15 @@ module.exports = [
     ],
   },
   {
-    type: 'list',
+    type: 'input',
     name: 'color',
-    message: 'Choose color:',
-    choices: [
-      'red',
-      'blue',
-      'green',
-      'black',
-      'grey',
-      'white',
-      'yellow',
-      'orange',
-      'pink',
-    ],
+    message: 'Input a color (RGB):',
+    validate: (value) => {
+      if (value && validHex(value)) {
+        return true;
+      }
+      return 'Please enter a valid color';
+    },
+    default: 'ffffff',
   },
 ];
