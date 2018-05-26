@@ -31,24 +31,13 @@ const cli = meow(`
     make            Build an avatar from scratch
                     (prompt: eyes nose mouth color)
 
-  Options:
-    -f, --file      Save an avatar to a file,
-                    by default it outputs to stdout & prints the link
-
   Examples:
-    $ ava make --file='avatar.png'
+    $ ava make
 
   Other options:
     --help           Show usage information
     --version        Print version info and exit
-  `, {
-  flags: {
-    file: {
-      type: 'string',
-      alias: 'f',
-    },
-  },
-});
+  `);
 
 /**
  * Main Part
