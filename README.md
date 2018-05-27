@@ -10,15 +10,19 @@ Make your own avatar
 
 - Uses [Adorable Avatars API](http://avatars.adorable.io/)
 
-- A CLI input param `get` saves to `./data/` by default (see `config/` to redefine folder name)
+- Call `ava` utility with parameters:
 
-- ?
+  - `get` to get a random avatar
 
-- Uses `meow` as CLI helper
+  - `make` to get a customized one
 
-- Uses `inquirer` as interctive CLI user interface
+- `ava` gives you an URL to a generated avatar
 
-- Loads environment variables from `.env` file
+- Also `ava` saves pictures to `./data/` by default (see `config/` if you want to redefine it)
+
+- Uses `meow` and `inquirer` as CLI helpers
+
+- NOTE: Don't forget to create `.env` (see `.env.example`)
 
 
 ## Quick Start
@@ -35,9 +39,12 @@ Make your own avatar
   # Help
   ava --help
   node cli.js --help
-  # ...
-
-
+  # Get a random image
+  ava get
+  node cli.js get
+  # Build an avatar from scratch
+  ava make
+  node cli.js make
   ```
 
 3. Make it a real CLI tool:
