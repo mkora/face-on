@@ -1,4 +1,7 @@
 const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const mkdir = require('make-dir');
 const inquirer = require('inquirer');
 const axios = require('axios');
 const {
@@ -12,23 +15,25 @@ const getQuestions = require('../questions/get');
 const makeQuestions = require('../questions/make');
 const config = require('../config');
 
-const getAvatar = (url, filename) => {
-  const folder = config.DEFAULT_FOLDER;
+const homedir = os.homedir();
+
+const getAvatar = async (url, filename) => {
+  const folder = path.join(homedir, config.DEFAULT_FOLDER);
   debug(`Let's make an API call to ${url}`);
 
-  axios({
-    method: 'get',
-    url,
-    responseType: 'stream',
-  })
-    .then((res) => {
-      res.data.pipe(fs.createWriteStream(`${folder}${filename}`));
-      success(`Image was saved to ${folder}${filename}`);
-    })
-    .catch((err) => {
-      error(err);
+  try {
+    const res = await axios({
+      method: 'get',
+      url,
+      responseType: 'stream',
     });
-  log(`You can also access avatar at ${url}`);
+    await mkdir(folder);
+    res.data.pipe(fs.createWriteStream(path.join(folder, filename)));
+    success(`Image was saved to ${folder}${filename}`);
+    log(`You can also access avatar at ${url}`);
+  } catch (err) {
+    error(err);
+  }
 };
 
 const getAction = (opts) => {

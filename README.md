@@ -18,7 +18,7 @@ Make your own avatar
 
 - `ava` gives you an URL to a generated avatar
 
-- Also `ava` saves pictures to `./data/` by default (see `config/` if you want to redefine it)
+- Also `ava` saves pictures to `face-on/` in the user home folder (see `config/` if you want to redefine it)
 
 - Uses `meow` and `inquirer` as CLI helpers
 
