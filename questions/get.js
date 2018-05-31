@@ -25,4 +25,10 @@ module.exports = [
     default: 285,
     filter: Number,
   },
+  {
+    type: 'confirm',
+    name: 'showPic',
+    message: 'Show an avatar in terminal?',
+    default: false,
+  },
 ];

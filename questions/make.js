@@ -72,4 +72,10 @@ module.exports = [
     },
     default: 'ffffff',
   },
+  {
+    type: 'confirm',
+    name: 'showPic',
+    message: 'Show an avatar in terminal?',
+    default: false,
+  },
 ];
