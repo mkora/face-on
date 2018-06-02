@@ -6,11 +6,11 @@ const inquirer = require('inquirer');
 const terminalImage = require('terminal-image');
 const axios = require('axios');
 const {
-  error, // eslint-disable-line no-unused-vars
-  warn, // eslint-disable-line no-unused-vars
-  success, // eslint-disable-line no-unused-vars
-  debug, // eslint-disable-line no-unused-vars
-  log, // eslint-disable-line no-unused-vars
+  error,
+  warn,
+  success,
+  debug,
+  log,
 } = require('../utils/chalk-init');
 const getQuestions = require('../questions/get');
 const makeQuestions = require('../questions/make');
@@ -29,20 +29,17 @@ const getAvatar = async (url, filename, show = false) => {
   });
 
   const folderPath = await mkdir(folder);
-  if (folder) {
-    debug(`Making folder ${folderPath}`);
-  }
-
   const filePath = path.join(folderPath, filename);
 
-  res.data.pipe(fs.createWriteStream(filePath));
-
-  success(`Image was saved to ${filePath}`);
-  log(`You can also access avatar at ${url}`);
-
-  if (show) {
-    log(await terminalImage.file(filePath));
-  }
+  res.data.pipe(fs
+    .createWriteStream(filePath)
+    .on('finish', async () => {
+      if (show) {
+        log(await terminalImage.file(filePath));
+      }
+      success(`Image was saved to ${filePath}`);
+      log(`You can also access avatar at ${url}`);
+    }));
 };
 
 const getAction = async (opts) => {
