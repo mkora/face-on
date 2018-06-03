@@ -1,9 +1,5 @@
 # Face ON
 
-Node.js, Meow.js, Inquirer.js
-
-## Overview
-
 Make your own avatar
 
 ## Notes
@@ -21,6 +17,8 @@ Make your own avatar
 - Also `ava` saves pictures to `face-on/` in the user home folder (see `config/` if you want to redefine it)
 
 - Uses `meow` and `inquirer` as CLI helpers
+
+- Uses `terminal-image` to display an image after it was generated
 
 - NOTE: Don't forget to create `.env` (see `.env.example`)
 
