@@ -23,14 +23,11 @@ const {
  */
 const cli = meow(`
   Usage:
-    $ node cli.js <input> [options]
-    $ ava <input> [options]
+    $ ava <input>
 
   Input:
-    get             Get a random image,
-                    (prompt: identifier[.png] size border-radius)
+    get             Get a random image
     make            Build an avatar from scratch
-                    (prompt: eyes nose mouth color)
 
   Examples:
     $ ava make
